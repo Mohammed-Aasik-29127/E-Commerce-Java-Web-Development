@@ -51,7 +51,7 @@
 
 
 
-<jsp:include page="header.jsp" />
+	<jsp:include page="header.jsp" />
 
 	<div class="text-center"
 		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
@@ -118,7 +118,7 @@
 	<!-- ENd of Product Items List -->
 
 
-	<%@ include file="footer.html"%>	
+	<%@ include file="footer.html"%>
 
 </body>
 </html>
