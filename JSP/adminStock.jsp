@@ -57,6 +57,66 @@
 						<th colspan="2" style="text-align: center">Actions</th>
 					</tr>
 				</thead>
+				<tbody style="background-color: white; font-size: 16px;">
+					
+					<%
+					ProductServiceImpl productDao = new ProductServiceImpl();
+					List<ProductBean> products = new ArrayList<ProductBean>();
+					products = productDao.getAllProducts();
+					for (ProductBean product : products) {
+					%>
+
+					<tr>
+						<td><img src="./ShowImage?pid=<%=product.getProdId()%>"
+							style="width: 50px; height: 50px;"></td>
+						<td><a
+							href="./updateProduct.jsp?prodid=<%=product.getProdId()%>"><%=product.getProdId()%></a></td>
+						<%
+						String name = product.getProdName();
+						name = name.substring(0, Math.min(name.length(), 25)) + "..";
+						%>
+						<td><%=name%></td>
+						<td><%=product.getProdType().toUpperCase()%></td>
+						<td><%=product.getProdPrice()%></td>
+						<td><%=new OrderServiceImpl().countSoldItem(product.getProdId())%></td>
+						<td><%=product.getProdQuantity()%></td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+									class="btn btn-primary">Update</button>
+							</form>
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit"
+									formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+									class="btn btn-danger">Remove</button>
+							</form>
+						</td>
+
+					</tr>
+
+					<%
+					}
+					%>
+					<%
+					if (products.size() == 0) {
+					%>
+					<tr style="background-color: grey; color: white;">
+						<td colspan="7" style="text-align: center;">No Items
+							Available</td>
+
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<%@ include file="footer.html"%>
 </body>
 </html>
 
