@@ -70,3 +70,62 @@
 							placeholder="Enter Product Name" name="name" class="form-control"
 							value="<%=product.getProdName()%>" id="last_name" required>
 					</div>
+                                    <div class="col-md-6 form-group">
+						<%
+						String ptype = product.getProdType();
+						%>
+						<label for="producttype">Product Type</label> <select name="type"
+							id="producttype" class="form-control" required>
+							<option value="Grocery"
+								<%="Grocery".equalsIgnoreCase(ptype) ? "selected" : ""%>>Grocery</option>
+							<option value="Ice-Cream"
+								<%="Ice-Cream".equalsIgnoreCase(ptype) ? "selected" : ""%>>Ice-Cream</option>
+							<option value="fruits"
+								<%="fruits".equalsIgnoreCase(ptype) ? "selected" : ""%>>Fruits</option>
+							<option value="Vegetables"
+								<%="Vegetables".equalsIgnoreCase(ptype) ? "selected" : ""%>>Vegetables</option>
+							<option value="drinks"
+								<%="drinks".equalsIgnoreCase(ptype) ? "selected" : ""%>>Drinks</option>
+							<option value="Meat"
+								<%="Meat".equalsIgnoreCase(ptype) ? "selected" : ""%>>Meat</option>
+							<option value="other"
+								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Some
+								Other Appliances</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="last_name">Product Description</label>
+					<textarea name="info" class="form-control text-align-left"
+						id="last_name" required><%=product.getProdInfo()%></textarea>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label for="last_name">Unit Price</label> <input type="number"
+							value="<%=product.getProdPrice()%>"
+							placeholder="Enter Unit Price" name="price" class="form-control"
+							id="last_name" required>
+					</div>
+					<div class="col-md-6 form-group">
+						<label for="last_name">Stock Quantity</label> <input type="number"
+							value="<%=product.getProdQuantity()%>"
+							placeholder="Enter Stock Quantity" class="form-control"
+							id="last_name" name="quantity" required>
+					</div>
+				</div>
+				<div class="row text-center">
+					<div class="col-md-4" style="margin-bottom: 2px;">
+						<button formaction="adminViewProduct.jsp" class="btn btn-danger">Cancel</button>
+					</div>
+					<div class="col-md-4">
+						<button type="submit" class="btn btn-success">Update
+							Product</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<%@ include file="footer.html"%>
+</body>
+</html>
