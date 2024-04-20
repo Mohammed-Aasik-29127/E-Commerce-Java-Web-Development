@@ -126,5 +126,52 @@
 
 
 
-    </body>
-    </html>
+<!-- Brand Section -->
+        <section class="section brand">
+            <div class="brand-container container">
+                    <h4 class="section-subtitle"><i>Our Trusted Brand</i></h4>
+
+                    <div class="brand-images">
+                            <div class="brand-image">
+                                    <img src="images2/brandImg1.png" alt="" class="brand-img">
+                            </div>
+                            <div class="brand-image">
+                                    <img src="images2/brandImg2.png" alt="" class="brand-img">
+                            </div>
+                            <div class="brand-image">
+                                    <img src="images2/brandImg3.png" alt="" class="brand-img">
+                            </div>
+                            <div class="brand-image">
+                                    <img src="images2/brandImg4.png" alt="" class="brand-img">
+                            </div>
+                            <div class="brand-image">
+                                    <img src="images2/brandImg5.png" alt="" class="brand-img">
+                            </div>
+                    </div>
+            </div>
+        </section>
+
+    
+<!-- Scroll Up -->
+        <a href="#home" class="scrollUp-btn flex">
+                <i class='bx bx-up-arrow-alt scrollUp-icon'></i>
+        </a>
+
+</main>
+
+<!-- Swiper JS -->
+<script src="js2/swiper-bundle.min.js"></script>
+
+<!-- Scroll Reveal -->
+<script src="js2/scrollreveal.js"></script>
+
+<!-- JavaScript -->
+    <script src="js2/script.js"></script>
+	
+	<!-- ENd of Product Items List -->
+
+
+	<%@ include file="footer.html"%>
+
+</body>
+</html>
