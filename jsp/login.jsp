@@ -34,3 +34,42 @@
 					<%
 					}
 					%>
+</div>
+				<div></div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label for="last_name">Username</label> <input type="email"
+							placeholder="Enter Username" name="username" class="form-control"
+							id="last_name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label for="last_name">Password</label> <input type="password"
+							placeholder="Enter Password" name="password" class="form-control"
+							id="last_name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label for="userrole">Login As</label> <select name="usertype"
+							id="userrole" class="form-control" required>
+							<option value="customer" selected>CUSTOMER</option>
+							<option value="admin">ADMIN</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn btn-success">Login</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	<%@ include file="footer.html"%>
+
+</body>
+</html>
