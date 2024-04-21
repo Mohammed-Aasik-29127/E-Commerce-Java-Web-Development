@@ -55,5 +55,51 @@
 		products = prodDao.getAllProducts();
 	}
 	%>
+	<jsp:include page="header.jsp" />
+
+	<div class="text-center"
+		style="color: black; font-size: 14px; font-weight: bold;"><%=message%></div>
+	<!-- Start of Product Items List -->
+	<div class="container" style="background-color: #E6F9E6;">
+		<div class="row text-center">
+
+			<%
+			for (ProductBean product : products) {
+			%>
+			<div class="col-sm-4" style='height: 350px;'>
+				<div class="thumbnail">
+					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
+						style="height: 150px; max-width: 180px;">
+					<p class="productname"><%=product.getProdName()%>
+						(
+						<%=product.getProdId()%>
+						)
+					</p>
+					<p class="productinfo"><%=product.getProdInfo()%></p>
+					<p class="price">
+						Rs
+						<%=product.getProdPrice()%>
+					</p>
+					<form method="post">
+						<button type="submit"
+							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
+							class="btn btn-danger">Remove Product</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit"
+							formaction="updateProduct.jsp?prodid=<%=product.getProdId()%>"
+							class="btn btn-primary">Update Product</button>
+					</form>
+				</div>
+			</div>
+
+			<%
+			}
+			%>
+
+		</div>
+	</div>
+	<!-- ENd of Product Items List -->
+
+	<%@ include file="footer.html"%>
 </body>
 </html>
