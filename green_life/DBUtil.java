@@ -37,3 +37,45 @@ public class DBUtil {
 
 		return conn;
 	}
+	public static void closeConnection(Connection con) {
+		/*
+		 * try { if (con != null && !con.isClosed()) {
+		 * 
+		 * con.close(); } } catch (SQLException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
+	}
+
+	public static void closeConnection(ResultSet rs) {
+		try {
+			if (rs != null && !rs.isClosed()) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void closeConnection(PreparedStatement ps) {
+		try {
+			if (ps != null && !ps.isClosed()) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
