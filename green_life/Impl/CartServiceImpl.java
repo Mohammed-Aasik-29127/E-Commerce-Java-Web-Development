@@ -120,4 +120,36 @@ public class CartServiceImpl implements CartService {
 
 		return items;
 	}
+	@Override
+	public int getCartCount(String userId) {
+		int count = 0;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select sum(quantity) from usercart where username=?");
+
+			ps.setString(1, userId);
+
+			rs = ps.executeQuery();
+
+			if (rs.next() && !rs.wasNull())
+				count = rs.getInt(1);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return count;
+	}
+
 
