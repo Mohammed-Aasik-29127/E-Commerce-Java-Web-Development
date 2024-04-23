@@ -1,4 +1,4 @@
-package com.shashi.utility;
+package green_life;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
