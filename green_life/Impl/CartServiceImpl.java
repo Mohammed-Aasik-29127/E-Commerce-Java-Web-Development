@@ -253,6 +253,82 @@ public class CartServiceImpl implements CartService {
 
 		return flag;
 	}
+	@Override
+	public String updateProductToCart(String userId, String prodId, int prodQty) {
+
+		String status = "Failed to Add into Cart";
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement("select * from usercart where username=? and prodid=?");
+
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+
+				if (prodQty > 0) {
+					ps2 = con.prepareStatement("update usercart set quantity=? where username=? and prodid=?");
+
+					ps2.setInt(1, prodQty);
+
+					ps2.setString(2, userId);
+
+					ps2.setString(3, prodId);
+
+					int k = ps2.executeUpdate();
+
+					if (k > 0)
+						status = "Product Successfully Updated to Cart!";
+				} else if (prodQty == 0) {
+					ps2 = con.prepareStatement("delete from usercart where username=? and prodid=?");
+
+					ps2.setString(1, userId);
+
+					ps2.setString(2, prodId);
+
+					int k = ps2.executeUpdate();
+
+					if (k > 0)
+						status = "Product Successfully Updated in Cart!";
+				}
+			} else {
+
+				ps2 = con.prepareStatement("insert into usercart values(?,?,?)");
+
+				ps2.setString(1, userId);
+
+				ps2.setString(2, prodId);
+
+				ps2.setInt(3, prodQty);
+
+				int k = ps2.executeUpdate();
+
+				if (k > 0)
+					status = "Product Successfully Updated to Cart!";
+
+			}
+
+		} catch (SQLException e) {
+			status = "Error: " + e.getMessage();
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+		DBUtil.closeConnection(ps2);
+
+		return status;
+	}
 
 }
 	
