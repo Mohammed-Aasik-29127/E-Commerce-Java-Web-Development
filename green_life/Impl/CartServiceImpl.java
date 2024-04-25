@@ -330,5 +330,63 @@ public class CartServiceImpl implements CartService {
 		return status;
 	}
 
+	public int getProductCount(String userId, String prodId) {
+		int count = 0;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select sum(quantity) from usercart where username=? and prodid=?");
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+			rs = ps.executeQuery();
+
+			if (rs.next() && !rs.wasNull())
+				count = rs.getInt(1);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return count;
+	}
+
+	@Override
+	public int getCartItemCount(String userId, String itemId) {
+		int count = 0;
+		if (userId == null || itemId == null)
+			return 0;
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select quantity from usercart where username=? and prodid=?");
+
+			ps.setString(1, userId);
+			ps.setString(2, itemId);
+
+			rs = ps.executeQuery();
+
+			if (rs.next() && !rs.wasNull())
+				count = rs.getInt(1);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return count;
+	}
+
 }
 	
