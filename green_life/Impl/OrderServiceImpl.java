@@ -71,6 +71,65 @@ public class OrderServiceImpl implements OrderService {
 
 		return status;
 	}
+	
+	@Override
+	public boolean addOrder(OrderBean order) {
+		boolean flag = false;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = con.prepareStatement("insert into orders values(?,?,?,?,?)");
+
+			ps.setString(1, order.getTransactionId());
+			ps.setString(2, order.getProductId());
+			ps.setInt(3, order.getQuantity());
+			ps.setDouble(4, order.getAmount());
+			ps.setInt(5, 0);
+
+			int k = ps.executeUpdate();
+
+			if (k > 0)
+				flag = true;
+
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
+
+	@Override
+	public boolean addTransaction(TransactionBean transaction) {
+		boolean flag = false;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = con.prepareStatement("insert into transactions values(?,?,?,?)");
+
+			ps.setString(1, transaction.getTransactionId());
+			ps.setString(2, transaction.getUserName());
+			ps.setTimestamp(3, transaction.getTransDateTime());
+			ps.setDouble(4, transaction.getTransAmount());
+
+			int k = ps.executeUpdate();
+
+			if (k > 0)
+				flag = true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
 
   
 }
