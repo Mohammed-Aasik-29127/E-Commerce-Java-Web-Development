@@ -130,6 +130,39 @@ public class OrderServiceImpl implements OrderService {
 
 		return flag;
 	}
+	
+	@Override
+	public int countSoldItem(String prodId) {
+		int count = 0;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select sum(quantity) from orders where prodid=?");
+
+			ps.setString(1, prodId);
+
+			rs = ps.executeQuery();
+
+			if (rs.next())
+				count = rs.getInt(1);
+
+		} catch (SQLException e) {
+			count = 0;
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(rs);
+
+		return count;
+	}
+
 
   
 }
