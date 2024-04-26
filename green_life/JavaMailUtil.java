@@ -106,5 +106,24 @@ public class JavaMailUtil {
 
 	}
 	
+	private static Message prepareMessage(Session session, String myAccountEmail, String recipientEmail, String subject,
+			String htmlTextMessage) {
 
+		try {
+
+			Message message = new MimeMessage(session);
+
+			message.setFrom(new InternetAddress(myAccountEmail));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
+			message.setSubject(subject);
+			message.setContent(htmlTextMessage, "text/html");
+			return message;
+
+		} catch (Exception exception) {
+			Logger.getLogger(JavaMailUtil.class.getName()).log(Level.SEVERE, null, exception);
+		}
+		return null;
+
+	}
+	
 }
