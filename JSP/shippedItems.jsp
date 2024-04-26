@@ -32,5 +32,76 @@
 
 	}
 	%>
+<jsp:include page="header.jsp" />
+
+	<div class="text-center"
+		style="color: green; font-size: 24px; font-weight: bold;">Shipped
+		Orders</div>
+	<div class="container-fluid">
+		<div class="table-responsive ">
+			<table class="table table-hover table-sm">
+				<thead
+					style="background-color: #115884; color: white; font-size: 18px;">
+					<tr>
+						<th>TransactionId</th>
+						<th>ProductId</th>
+						<th>Username</th>
+						<th>Address</th>
+						<th>Quantity</th>
+						<th>Amount</th>
+						<td>Status</td>
+					</tr>
+				</thead>
+				<tbody style="background-color: white;">
+
+					<%
+					OrderServiceImpl orderdao = new OrderServiceImpl();
+
+					List<OrderBean> orders = new ArrayList<OrderBean>();
+					orders = orderdao.getAllOrders();
+					int count = 0;
+					for (OrderBean order : orders) {
+						String transId = order.getTransactionId();
+						String prodId = order.getProductId();
+						int quantity = order.getQuantity();
+						int shipped = order.getShipped();
+						String userId = new TransServiceImpl().getUserId(transId);
+						String userAddr = new UserServiceImpl().getUserAddr(userId);
+						if (shipped != 0) {
+							count++;
+					%>
+
+					<tr>
+						<td><%=transId%></td>
+						<td><a href="./updateProduct.jsp?prodid=<%=prodId%>"><%=prodId%></a></td>
+						<td><%=userId%></td>
+						<td><%=userAddr%></td>
+						<td><%=quantity%></td>
+						<td>Rs. <%=order.getAmount()%></td>
+						<td class="text-success" style="font-weight: bold;">SHIPPED</td>
+
+					</tr>
+
+					<%
+					}
+					}
+					%>
+					<%
+					if (count == 0) {
+					%>
+					<tr style="background-color: grey; color: white;">
+						<td colspan="7" style="text-align: center;">No Items
+							Available</td>
+
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<%@ include file="footer.html"%>
 </body>
 </html>
