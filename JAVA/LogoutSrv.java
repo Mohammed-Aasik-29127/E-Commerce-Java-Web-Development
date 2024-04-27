@@ -1,4 +1,4 @@
-package com.shashi.srv;
+package com.GREEN_LIFE.srv;
 
 import java.io.IOException;
 
