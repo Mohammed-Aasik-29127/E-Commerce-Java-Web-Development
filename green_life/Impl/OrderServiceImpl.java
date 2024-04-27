@@ -162,6 +162,70 @@ public class OrderServiceImpl implements OrderService {
 
 		return count;
 	}
+	@Override
+	public List<OrderBean> getAllOrders() {
+		List<OrderBean> orderList = new ArrayList<OrderBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement("select * from orders");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				OrderBean order = new OrderBean(rs.getString("orderid"), rs.getString("prodid"), rs.getInt("quantity"),
+						rs.getDouble("amount"), rs.getInt("shipped"));
+
+				orderList.add(order);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return orderList;
+	}
+
+	@Override
+	public List<OrderBean> getOrdersByUserId(String emailId) {
+		List<OrderBean> orderList = new ArrayList<OrderBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement(
+					"SELECT * FROM orders o inner join transactions t on o.orderid = t.transid where username=?");
+			ps.setString(1, emailId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				OrderBean order = new OrderBean(rs.getString("t.transid"), rs.getString("t.prodid"),
+						rs.getInt("quantity"), rs.getDouble("t.amount"), rs.getInt("shipped"));
+
+				orderList.add(order);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return orderList;
+	}
 
 
   
