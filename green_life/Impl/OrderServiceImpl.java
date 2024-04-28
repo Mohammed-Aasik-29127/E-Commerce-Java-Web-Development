@@ -226,7 +226,74 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderList;
 	}
+	@Override
+	public List<OrderDetails> getAllOrderDetails(String userEmailId) {
+		List<OrderDetails> orderList = new ArrayList<OrderDetails>();
 
+		Connection con = DBUtil.provideConnection();
 
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ps = con.prepareStatement(
+					"SELECT  p.pid as prodid, o.orderid as orderid, o.shipped as shipped, p.image as image, p.pname as pname, o.quantity as qty, o.amount as amount, t.time as time FROM orders o, product p, transactions t where o.orderid=t.transid and o.orderid = t.transid and p.pid=o.prodid and t.username=?");
+			ps.setString(1, userEmailId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				OrderDetails order = new OrderDetails();
+				order.setOrderId(rs.getString("orderid"));
+				order.setProdImage(rs.getAsciiStream("image"));
+				order.setProdName(rs.getString("pname"));
+				order.setQty(rs.getString("qty"));
+				order.setAmount(rs.getString("amount"));
+				order.setTime(rs.getTimestamp("time"));
+				order.setProductId(rs.getString("prodid"));
+				order.setShipped(rs.getInt("shipped"));
+				orderList.add(order);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return orderList;
+	}
+
+	@Override
+	public String shipNow(String orderId, String prodId) {
+		String status = "FAILURE";
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = con.prepareStatement("update orders set shipped=1 where orderid=? and prodid=? and shipped=0");
+
+			ps.setString(1, orderId);
+			ps.setString(2, prodId);
+
+			int k = ps.executeUpdate();
+
+			if (k > 0) {
+				status = "Order Has been shipped successfully!!";
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+
+		return status;
+	}
   
 }
