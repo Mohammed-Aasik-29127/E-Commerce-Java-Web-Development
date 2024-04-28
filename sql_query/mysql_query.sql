@@ -185,6 +185,47 @@ INSERT INTO `shopping-cart`.`orders` (`orderid`, `prodid`, `quantity`, `amount`,
 
 COMMIT;
 
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('guest@gmail.com', 'Guest User', 9876543234, 'K.P Road, Gaya, Bihar - India', 879767, 'guest');
+INSERT INTO `shopping-cart`.`user` (`email`, `name`, `mobile`, `address`, `pincode`, `password`) VALUES ('admin@gmail.com', 'Admin User', 9876543459, 'ABC Colony, Newtown, West Bengal', 786890, 'admin');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`transactions`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`transactions` (`transid`, `username`, `time`, `amount`) VALUES ('TR10001', 'guest@gmail.com', '2023-04-23 09:26:56', 125999);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`user_demand`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`user_demand` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423084144', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`usercart`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`usercart` (`username`, `prodid`, `quantity`) VALUES ('guest@gmail.com', 'P20230423082243', 2);
+
+COMMIT;
+
+
 
 
 
