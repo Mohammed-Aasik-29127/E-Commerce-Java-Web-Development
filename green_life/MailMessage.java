@@ -43,3 +43,25 @@ public class MailMessage {
 			e.printStackTrace();
 		}
 	}
+
+	public static void orderShipped(String recipientEmail, String name, String transId, double transAmount) {
+		String recipient = recipientEmail;
+		String subject = "Hurray!!, Your Order has been Shipped from Green Life";
+		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
+				+ "      We are glad that you shop with Green Life!" + "      <br/><br/>"
+				+ "      Your order has been shipped successfully and on the way to be delivered."
+				+ "      <br/>" + "      Here is Your Transaction Details:<br/>" + "      <br/>"
+				+ "      <font style=\"color:red;font-weight:bold;\">Order Id:</font>"
+				+ "      <font style=\"color:green;font-weight:bold;\">" + transId + "</font><br/>" + "      <br/>"
+				+ "      <font style=\"color:red;font-weight:bold;\">Amount Paid:</font> <font style=\"color:green;font-weight:bold;\">"
+				+ transAmount + "</font>" + "      <br/><br/>" + "      Thanks for shopping with us!<br/><br/>"
+				+ "      Come Shop Again! <br/<br/> <font style=\"color:green;font-weight:bold;\">Green Life.</font>"
+				+ "    </p>" + "    " + "  </body>" + "</html>";
+
+		try {
+			JavaMailUtil.sendMail(recipient, subject, htmlTextMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+
