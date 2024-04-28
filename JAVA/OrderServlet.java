@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.shashi.service.impl.OrderServiceImpl;
+import com.GREEN_LIFE.service.impl.OrderServiceImpl;
 
 /**
  * Servlet implementation class OrderServlet
