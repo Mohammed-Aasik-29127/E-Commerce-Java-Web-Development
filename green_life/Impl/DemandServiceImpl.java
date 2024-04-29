@@ -66,6 +66,57 @@ public class DemandServiceImpl implements DemandService {
 		//return true if the product is added into the db
 		return flag;
 	}
+	@Override
+	public boolean removeProduct(String userId, String prodId) {
+		boolean flag = false;
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from user_demand where username=? and prodid=?");
+
+			ps.setString(1, userId);
+			ps.setString(2, prodId);
+
+			rs = ps.executeQuery();
+
+			// System.out.println("userId "+userId+"\nprodId: "+prodId);
+
+			if (rs.next()) {
+
+				// System.out.println("userId "+userId+"\nprodId: "+prodId);
+				ps2 = con.prepareStatement("delete from  user_demand where username=? and prodid=?");
+
+				ps2.setString(1, userId);
+
+				ps2.setString(2, prodId);
+
+				int k = ps2.executeUpdate();
+
+				if (k > 0)
+					flag = true;
+
+			} else {
+				flag = true;
+			}
+
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		}
+
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(ps2);
+		DBUtil.closeConnection(rs);
+
+		return flag;
+	}
+
 
   
 }
