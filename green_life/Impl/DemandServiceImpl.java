@@ -66,6 +66,7 @@ public class DemandServiceImpl implements DemandService {
 		//return true if the product is added into the db
 		return flag;
 	}
+	
 	@Override
 	public boolean removeProduct(String userId, String prodId) {
 		boolean flag = false;
@@ -116,7 +117,41 @@ public class DemandServiceImpl implements DemandService {
 
 		return flag;
 	}
+	@Override
+	public boolean addProduct(DemandBean userDemandBean) {
 
+		return addProduct(userDemandBean.getUserName(), userDemandBean.getProdId(), userDemandBean.getDemandQty());
+	}
 
-  
+	@Override
+	public List<DemandBean> haveDemanded(String prodId) {
+		List<DemandBean> demandList = new ArrayList<DemandBean>();
+
+		Connection con = DBUtil.provideConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			ps = con.prepareStatement("select * from user_demand where prodid=?");
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				DemandBean demand = new DemandBean(rs.getString("username"), rs.getString("prodid"),
+						rs.getInt("quantity"));
+
+				demandList.add(demand);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return demandList;
+	}
+
 }
