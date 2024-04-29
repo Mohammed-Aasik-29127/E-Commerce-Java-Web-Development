@@ -64,4 +64,41 @@ public class MailMessage {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void productAvailableNow(String recipientEmail, String name, String prodName, String prodId) {
+		String recipient = recipientEmail;
+		String subject = "Product " + prodName + " is Now Available at Green Life";
+		String htmlTextMessage = "<html>" + "  <body>" + "    <p>" + "      Hey " + name + ",<br/><br/>"
+				+ "      We are glad that you shop with Green Life!" + "      <br/><br/>"
+				+ "      As per your recent browsing history, we seen that you were searching for an item that was not available in sufficient amount"
+				+ " at that time. <br/><br/>"
+				+ "We are glad to say that the product named <font style=\"color:green;font-weight:bold;\">" + prodName
+				+ "</font> with " + "product Id <font style=\"color:green;font-weight:bold;\">" + prodId
+				+ "</font> is now available to shop in our Market!"
+				+ "      <br/>" + "      Here is The product detail which is now available in our shop:<br/>"
+				+ "      <br/>"
+				+ "      <font style=\"color:red;font-weight:bold;\">Product Id: </font><font style=\"color:green;font-weight:bold;\">"
+				+ prodId + " " + "      </font><br/>" + "      <br/>"
+				+ "      <font style=\"color:red;font-weight:bold;\">Product Name: </font> <font style=\"color:green;font-weight:bold;\">"
+				+ prodName + "</font>" + "      <br/><br/>" + "      Thanks for shopping with us!<br/><br/>"
+				+ "      Come Shop Again! <br/<br/><br/> <font style=\"color:green;font-weight:bold;\">Green Life.</font>"
+				+ "    </p>" + "    " + "  </body>" + "</html>";
+
+		try {
+			JavaMailUtil.sendMail(recipient, subject, htmlTextMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String sendMessage(String toEmailId, String subject, String htmlTextMessage) {
+		try {
+			JavaMailUtil.sendMail(toEmailId, subject, htmlTextMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return "FAILURE";
+		}
+		return "SUCCESS";
+	}
+}
 
